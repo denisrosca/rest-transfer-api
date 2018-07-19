@@ -21,7 +21,8 @@ lazy val root = project
       "org.tpolecat" %% "doobie-h2" % doobieVersion,
       "com.h2database" % "h2" % "1.4.197",
 
-      "org.scalatest" %% "scalatest" % "3.0.5" % "test"
+      "org.scalatest" %% "scalatest" % "3.0.5" % "test",
+      "org.tpolecat" %% "doobie-scalatest" % doobieVersion % "test"
     )
   )
 
