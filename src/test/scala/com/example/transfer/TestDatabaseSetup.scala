@@ -4,7 +4,7 @@ import cats.effect.IO
 import doobie.scalatest.IOChecker
 import doobie.util.transactor.Transactor
 
-trait DatabaseSetup {
+trait TestDatabaseSetup {
   self: IOChecker =>
 
   override def transactor: doobie.Transactor[IO] = Transactor.fromDriverManager[IO](
