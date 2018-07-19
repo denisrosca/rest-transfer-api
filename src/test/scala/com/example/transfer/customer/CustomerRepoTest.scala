@@ -11,6 +11,7 @@ import org.scalatest.{FunSuite, Matchers}
 class CustomerRepoTest extends FunSuite with Matchers with IOChecker with TestDatabaseSetup {
 
   val repo = new CustomerRepo(LogHandler.nop)
+  override def databaseName: String = "customerRepoDB"
 
   test("Query all schema validation") {
     check(repo.all)
@@ -49,4 +50,5 @@ class CustomerRepoTest extends FunSuite with Matchers with IOChecker with TestDa
 
     result shouldBe testCustomer
   }
+
 }

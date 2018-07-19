@@ -7,9 +7,11 @@ import doobie.util.transactor.Transactor
 trait TestDatabaseSetup {
   self: IOChecker =>
 
+  def databaseName: String
+
   override def transactor: doobie.Transactor[IO] = Transactor.fromDriverManager[IO](
     "org.h2.Driver",
-    "jdbc:h2:mem:test;DB_CLOSE_DELAY=0;INIT=runscript from './database-schema.sql'",
+    s"jdbc:h2:mem:$databaseName;DB_CLOSE_DELAY=0;INIT=runscript from './database-schema.sql'",
     "",
     ""
   )
