@@ -30,8 +30,10 @@ class AccountRepo(logHandler: LogHandler) {
   }
 
   def insert(account: Account): Update0 = {
+    val balance = account.balance
     sql"""
-        INSERT INTO accounts VALUES(${account.id}, ${account.customerId}, ${account.createdOn})
+        INSERT INTO accounts
+        VALUES(${account.id}, ${account.customerId}, $balance, ${account.createdOn})
       """.updateWithLogHandler(logHandler)
   }
 

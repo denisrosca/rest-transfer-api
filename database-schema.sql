@@ -5,9 +5,10 @@ CREATE TABLE customers(
 );
 
 CREATE TABLE accounts(
-    id UUID PRIMARY KEY,
-    customerId UUID NOT NULL,
-    createdOn TIMESTAMP NOT NULL,
+  id UUID PRIMARY KEY,
+  customerId UUID NOT NULL,
+  balance NUMERIC NOT NULL,
+  createdOn TIMESTAMP NOT NULL,
 
-    CONSTRAINT FK_AccountCustomer FOREIGN KEY(customerId) REFERENCES customers(id)
+  CONSTRAINT FK_AccountCustomer FOREIGN KEY(customerId) REFERENCES customers(id)
 );
