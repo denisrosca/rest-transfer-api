@@ -31,7 +31,7 @@ class AccountRepo(logHandler: LogHandler) {
 
   def insert(account: Account): Update0 = {
     sql"""
-        INSERT INTO accounts VALUES(${account.id}, ${account.customerId})
+        INSERT INTO accounts VALUES(${account.id}, ${account.customerId}, ${account.createdOn})
       """.updateWithLogHandler(logHandler)
   }
 

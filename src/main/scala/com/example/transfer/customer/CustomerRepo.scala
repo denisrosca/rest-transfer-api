@@ -24,7 +24,7 @@ class CustomerRepo(logHandler: LogHandler) {
 
   def insert(customer: Customer): Update0 = {
     sql"""
-        INSERT INTO customers VALUES(${customer.id}, ${customer.name})
+        INSERT INTO customers VALUES(${customer.id}, ${customer.name}, ${customer.registeredOn})
     """.updateWithLogHandler(logHandler)
   }
 
