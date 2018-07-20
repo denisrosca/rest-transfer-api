@@ -23,6 +23,12 @@ class AccountRepo(logHandler: LogHandler) {
       """.queryWithLogHandler(logHandler)
   }
 
+  def byCustomerId(id: Id): Query0[Account] = {
+    sql"""
+        SELECT * FROM accounts where customerId = $id
+      """.queryWithLogHandler(logHandler)
+  }
+
   def insert(account: Account): Update0 = {
     sql"""
         INSERT INTO accounts VALUES(${account.id}, ${account.customerId})

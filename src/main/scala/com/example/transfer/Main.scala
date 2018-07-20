@@ -1,8 +1,9 @@
 package com.example.transfer
 
 import cats.effect.IO
+import com.example.transfer.account.{AccountRepo, AccountServiceImpl}
 import com.example.transfer.customer.{CustomerRepo, CustomerServiceImpl}
-import com.example.transfer.http.CustomerEndpoint
+import com.example.transfer.http.{AccountsEndpoint, CustomerEndpoint}
 import doobie.h2.H2Transactor
 import doobie.implicits._
 import doobie.util.log.LogHandler
@@ -19,10 +20,12 @@ object Main extends StreamApp[IO] {
       transactor <- H2Transactor.stream[IO](databaseConnectionString, "", "")
 
       customerService = new CustomerServiceImpl[IO](new CustomerRepo(LogHandler.nop), transactor)
+      accountsService = new AccountServiceImpl[IO](new AccountRepo(LogHandler.nop), transactor)
 
       exitCode <- BlazeBuilder[IO]
         .bindHttp(8080, "0.0.0.0")
         .mountService(new CustomerEndpoint[IO](customerService).service, "/api/")
+        .mountService(new AccountsEndpoint[IO](accountsService).service, "/api/")
         .serve
     } yield exitCode
   }

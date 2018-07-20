@@ -1,12 +1,28 @@
 package com.example.transfer
 
 import cats.effect.IO
-import org.http4s.{EntityDecoder, Response, Status}
+import io.circe.Json
+import org.http4s.{EntityDecoder, HttpService, Method, Request, Response, Status, Uri}
 import org.scalatest.{Assertion, Matchers}
+import org.http4s.dsl.io._
+import org.http4s.circe._
 
 trait HttpChecker {
 
   self: Matchers =>
+
+  def get(endpoint: HttpService[IO], uri: String): IO[Response[IO]] = {
+    endpoint.orNotFound.run(
+      Request(method = Method.GET, uri = Uri.unsafeFromString(uri))
+    )
+  }
+
+  def post(endpoint: HttpService[IO], uri: String, payload: Json): IO[Response[IO]] = {
+    for {
+      request <- Request[IO](method = Method.POST, uri = Uri.unsafeFromString(uri)).withBody(payload)
+      response <- endpoint.orNotFound.run(request)
+    } yield response
+  }
 
   def check[A]
     (actual: IO[Response[IO]], expectedStatus: Status, expectedBody: Option[A])

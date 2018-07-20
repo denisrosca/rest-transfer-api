@@ -15,8 +15,8 @@ import org.http4s.{DecodeFailure, EntityDecoder, EntityEncoder, HttpService}
 
 class CustomerEndpoint[F[_]: Effect](customerService: CustomerService[F]) extends Http4sDsl[F] {
 
-  implicit val accountEntityEncoder: EntityEncoder[F, Customer] = jsonEncoderOf[F, Customer]
-  implicit val accountsEntityEncoder: EntityEncoder[F, List[Customer]] = jsonEncoderOf[F, List[Customer]]
+  implicit val customerEntityEncoder: EntityEncoder[F, Customer] = jsonEncoderOf[F, Customer]
+  implicit val customerListEntityEncoder: EntityEncoder[F, List[Customer]] = jsonEncoderOf[F, List[Customer]]
 
   private implicit val customerRequestEntityDecoder: EntityDecoder[F, NewCustomerRequest] = jsonOf[F, NewCustomerRequest]
 
