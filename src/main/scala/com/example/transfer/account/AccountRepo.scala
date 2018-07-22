@@ -37,4 +37,21 @@ class AccountRepo(logHandler: LogHandler) {
       """.updateWithLogHandler(logHandler)
   }
 
+  def lock(id: Id): Query0[Account] = {
+    sql"""
+        SELECT * FROM accounts where id = $id FOR UPDATE
+      """.queryWithLogHandler(logHandler)
+  }
+
+  def updateBalance(account: Account): Update0 = {
+    sql"""
+        UPDATE
+          accounts
+        SET
+          balance = ${account.balance}
+        WHERE
+          id = ${account.id}
+      """.update(logHandler)
+  }
+
 }

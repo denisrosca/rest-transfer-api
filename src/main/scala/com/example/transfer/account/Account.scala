@@ -12,6 +12,6 @@ object Account {
 
   type Id = UUID
 
-  def apply(customerId: CustomerId): Account = Account(UUID.randomUUID(), customerId, 0, Instant.now())
+  def apply(customerId: CustomerId): Account = Account(UUID.randomUUID(), customerId, 100, Instant.now())
 
 }

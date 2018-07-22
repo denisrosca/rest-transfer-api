@@ -12,3 +12,15 @@ CREATE TABLE accounts(
 
   CONSTRAINT FK_AccountCustomer FOREIGN KEY(customerId) REFERENCES customers(id)
 );
+
+CREATE TABLE transfers(
+  id UUID PRIMARY KEY,
+  source UUID NOT NULL,
+  destination UUID NOT NULL,
+  amount NUMERIC NOT NULL,
+  description NVARCHAR(200),
+  date TIMESTAMP NOT NULL,
+
+  CONSTRAINT FK_TRANSFER_SOURCE_ACCOUNT FOREIGN KEY(source) REFERENCES accounts(id),
+  CONSTRAINT FK_TRANSFER_DESTINATION_ACCOUNT FOREIGN KEY(source) REFERENCES accounts(id)
+);
